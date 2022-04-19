@@ -18,6 +18,7 @@
   "homepage": "https://github.com/hazzaRR/BeautyRoomBookings#readme",
   "dependencies": {
     "express": "^4.17.3",
+    "fullcalendar": "^5.11.0",
     "pg": "^8.7.3"
   }
 }
