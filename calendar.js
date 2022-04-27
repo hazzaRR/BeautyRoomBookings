@@ -5,8 +5,9 @@ let date = null;
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'timeGridWeek',
+      initialView: 'dayGridMonth',
       selectable: true,
+      firstDay: 1,
       slotMinTime: '07:00',
       slotMaxTime: '21:00',
       slotDuration: '00:15',
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       dateClick: function(info) {
         date = info.dateStr;
+        console.log(date);
         //calendar.changeView('timeGridDay', date);
         //alert('Clicked on: ' + info.dateStr);
         // change the day's background color just for fun
