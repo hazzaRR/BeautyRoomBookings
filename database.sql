@@ -34,6 +34,7 @@ CREATE TABLE bookings (
 );
 
 CREATE TABLE appointments (
+    appointmentID SERIAL PRIMARY KEY
     StartTime TIMESTAMPTZ,
     EndTime TIMESTAMPTZ,
     ClientID INTEGER,
@@ -41,4 +42,11 @@ CREATE TABLE appointments (
     FOREIGN KEY (ClientID) REFERENCES clients(ID),
     FOREIGN KEY (treatmentId) REFERENCES treatment(ID),
     CONSTRAINT BookingID PRIMARY KEY(BookingDate, StartTime)
+);
+
+CREATE TABLE appointmentTreatments (
+    appointmentTreatments SERIAL PRIMARY KEY,
+    treatmentID INTEGER,
+    FOREIGN KEY (treatmentID) REFERENCES treatment(ID),
+    FOREIGN KEY (appointments) REFERENCES 
 );
