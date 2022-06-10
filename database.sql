@@ -22,31 +22,48 @@ CREATE TABLE treatment (
     PRICE NUMERIC(6, 2)
 );
 
-CREATE TABLE bookings (
+-- CREATE TABLE bookings (
+--     BookingDate DATE,
+--     StartTime TIME,
+--     EndTime TIME,
+--     ClientID INTEGER,
+--     treatmentId INTEGER,
+--     FOREIGN KEY (ClientID) REFERENCES clients(ID),
+--     FOREIGN KEY (treatmentId) REFERENCES treatment(ID),
+--     CONSTRAINT BookingID PRIMARY KEY(BookingDate, StartTime)
+-- );
+
+CREATE TABLE appointment (
+    ID SERIAL PRIMARY KEY,
     BookingDate DATE,
     StartTime TIME,
     EndTime TIME,
     ClientID INTEGER,
-    treatmentId INTEGER,
-    FOREIGN KEY (ClientID) REFERENCES clients(ID),
-    FOREIGN KEY (treatmentId) REFERENCES treatment(ID),
-    CONSTRAINT BookingID PRIMARY KEY(BookingDate, StartTime)
-);
-
-CREATE TABLE appointments (
-    appointmentID SERIAL PRIMARY KEY
-    StartTime TIMESTAMPTZ,
-    EndTime TIMESTAMPTZ,
-    ClientID INTEGER,
-    treatmentId INTEGER,
-    FOREIGN KEY (ClientID) REFERENCES clients(ID),
-    FOREIGN KEY (treatmentId) REFERENCES treatment(ID),
-    CONSTRAINT BookingID PRIMARY KEY(BookingDate, StartTime)
+    TotalPrice NUMERIC(6, 2),
+    FOREIGN KEY (ClientID) REFERENCES clients(ID)
 );
 
 CREATE TABLE appointmentTreatments (
-    appointmentTreatments SERIAL PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     treatmentID INTEGER,
+    appointmentID INTEGER,
     FOREIGN KEY (treatmentID) REFERENCES treatment(ID),
-    FOREIGN KEY (appointments) REFERENCES 
+    FOREIGN KEY (appointmentID) REFERENCES appointment(ID)
 );
+
+
+-- CREATE OR REPLACE FUNCTION update_appointment_price()
+-- RETURNS TRIGGER AS $$
+-- Declare  
+--  TotalPrice NUMERIC(6, 2);  
+-- BEGIN
+-- SELECT SUM(PRICE) FROM treatment
+-- WHERE TicketID = new.TicketID;
+-- RETURN NEW;
+-- END
+-- $$ LANGUAGE PLPGSQL;
+
+-- CREATE TRIGGER print_ticket
+-- AFTER INSERT ON TicketUpdate
+-- FOR EACH ROW
+-- EXECUTE PROCEDURE ticket_confirmation();

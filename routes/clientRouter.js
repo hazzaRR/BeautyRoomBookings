@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 
+const pool = require('../db');
+
 
 const router = express.Router();
 
@@ -34,7 +36,7 @@ router.post("/client", async(req, res) => {
 
 //Get all clients
 
-router.get("/client", async(req, res) => {
+router.get("/getClients", async(req, res) => {
 
     try {
 
