@@ -2,7 +2,16 @@ let startTime = null;
 let endTime = null;
 let date = null;
 
-document.addEventListener('DOMContentLoaded', function() {
+async function getAllAppointments() {
+
+  const response = await fetch('/appointment/getAppointments');
+
+  const appointments = await response.json();
+
+  return appointments;
+}
+
+document.addEventListener('DOMContentLoaded', async function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
@@ -17,10 +26,15 @@ document.addEventListener('DOMContentLoaded', function() {
         center: 'title',
         right: 'addAppointmentBtn dayGridMonth,timeGridWeek,timeGridDay,listWeek'
       },
+      eventTimeFormat: {
+        hour: 'numeric',
+        minute: '2-digit',
+        meridiem: 'short'
+      },
       dateClick: function(info) {
         date = info.dateStr;
         console.log(date);
-        //calendar.changeView('timeGridDay', date);
+        calendar.changeView('timeGridDay', date);
         //alert('Clicked on: ' + info.dateStr);
         // change the day's background color just for fun
         //info.dayEl.style.backgroundColor = 'lightBlue';
@@ -34,6 +48,11 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       unselect: function(info) {
         appointmentBtn.disabled = true;
+      },
+      eventClick: function(info) {
+        alert('Event: ' + info.event.id);
+        // change the border color just for fun
+        info.el.style.borderColor = 'red';
       },
       customButtons: {
         addAppointmentBtn: {
@@ -66,6 +85,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     });
     calendar.render();
+
+    const appointments = await getAllAppointments();
+
+   // console.log(appointments)
+
+    for (let i = 0; i < appointments.length; i++) {
+      calendar.addEvent({
+        id: appointments[i].id,
+        title: appointments[i].title,
+        start: appointments[i].appdate.substring(0, 11) + appointments[i].starttime,
+        end: appointments[i].appdate.substring(0, 11) + appointments[i].endtime
+      })
+        console.log(appointments[i].starttime);
+
+    }
+
 
     const appointmentBtn = document.querySelector('.fc-addAppointmentBtn-button');
     appointmentBtn.disabled = true;

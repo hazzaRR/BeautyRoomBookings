@@ -51,47 +51,70 @@ async function getClients() {
 
     const clientSelector = document.querySelector('#client_selector');
 
-    clients.forEach(client => addOptions(client.clientname, clientSelector)); // add new select option for each car park
+    clients.forEach(client => addOptions(client, clientSelector)); // add new select option for each car park
+};
 
+async function createAppointment(event) {
 
-    for(let i = 0; i < clients.length; i++) {
-        console.log(clients[i]);
+    event.preventDefault();
 
-        // clients.forEach(client => addOptions(client.clientname, clientSelector)); // add new select option for each car park
+    const clientId = document.getElementById('client_selector').value;
+    const date = document.getElementById('date').value;
+    const startTime = document.getElementById('start-time').value;
+    const endTime = document.getElementById('end-time').value;
+    let treatments = [];
 
+    //gets all the selected treatments
+    let inputElements = document.getElementsByClassName('treatment');
+    for (let i=0; i < inputElements.length; i++){
+      if(inputElements[i].checked) {
+        treatments.push(inputElements[i].id.substring(10));
+      }
+    };
 
-        // const treatmentCheck =  document.createElement("INPUT");
-        // treatmentCheck.setAttribute("type", "checkbox");
-        // treatmentCheck.setAttribute('id',`treatment_${treatments[i].id}`);
-        // treatmentCheck.setAttribute('name',`treatment_${treatments[i].id}`);
-        // treatmentCheck.classList.add('treatment');
+    //create a new request object
+    const newAppointment = {
+        date,
+        startTime,
+        endTime,
+        clientId,
+        treatments
+    };
 
-        // const treatmentNameLabel = document.createElement("label");
-        // treatmentNameLabel.setAttribute('for',`treatment_${treatments[i].id}`);
-        // treatmentNameLabel.innerHTML = treatments[i].treatmentname;
+    // turns newAppointment object into JSON string
+    const serializedMessage = JSON.stringify(newAppointment);
 
+    // posts JSON string to the server at the end point /appointment/createAppointment
+    const response = await fetch('/appointment/createAppointment', { method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                        body: serializedMessage
+                    }
+                )
 
+    const json = await response.json();
 
-    }
-
-
-
+    alert("Appointment has successfully been made");
+    form.reset();
 
 };
 
 
-//adds the carpark options to the select tag 
+//adds the clients to the select tag 
 function addOptions(client, selector)
 {
     const option = document.createElement("option");
-    option.value = client;
-    option.text = client;
+    option.value = client.id;
+    option.text = client.clientname;
     selector.add(option);
 }
 
 
-//document.addEventListener('DOMContentLoaded', getTreatments);
+document.addEventListener('DOMContentLoaded', getTreatments);
 document.addEventListener('DOMContentLoaded', getClients);
+
+form.addEventListener('submit', createAppointment);
 
 
 

@@ -8,3 +8,8 @@ INSERT INTO bookings VALUES (7,'Briscoe Gibbs', 'b.gibbs@gmail.com');
 INSERT INTO bookings VALUES (8,'Birdie Lynton', 'b.lynton@gmail.com');
 INSERT INTO bookings VALUES (9,'Brad Robson', 'b.robson@gmail.com');
 INSERT INTO bookings VALUES (10,'Raleigh Alan', 'r.alan@gmail.com');
+
+
+INSERT INTO appointmentTreatments Values(1, 1, 1);
+INSERT INTO appointmentTreatments Values(2, 4, 1);
+INSERT INTO appointmentTreatments Values(3, 12, 2);

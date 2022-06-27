@@ -35,11 +35,11 @@ CREATE TABLE treatment (
 
 CREATE TABLE appointment (
     ID SERIAL PRIMARY KEY,
-    BookingDate DATE,
+    AppDate DATE,
     StartTime TIME,
     EndTime TIME,
     ClientID INTEGER,
-    TotalPrice NUMERIC(6, 2),
+    TotalPrice NUMERIC(6, 2) DEFAULT 0,
     FOREIGN KEY (ClientID) REFERENCES clients(ID)
 );
 
@@ -52,18 +52,50 @@ CREATE TABLE appointmentTreatments (
 );
 
 
--- CREATE OR REPLACE FUNCTION update_appointment_price()
--- RETURNS TRIGGER AS $$
--- Declare  
---  TotalPrice NUMERIC(6, 2);  
--- BEGIN
--- SELECT SUM(PRICE) FROM treatment
--- WHERE TicketID = new.TicketID;
--- RETURN NEW;
--- END
--- $$ LANGUAGE PLPGSQL;
+CREATE OR REPLACE FUNCTION update_appointment_price_after_insert()
+RETURNS TRIGGER AS $$
+Declare  
+ appointmentPrice NUMERIC(6, 2);
+BEGIN
+SELECT SUM(treatment.PRICE) into appointmentPrice
+FROM treatment INNER JOIN appointmentTreatments ON treatment.ID = appointmentTreatments.treatmentID
+INNER JOIN appointment ON appointment.ID = appointmentTreatments.appointmentID
+WHERE appointment.ID = new.appointmentID
+GROUP BY appointment.ID;
 
--- CREATE TRIGGER print_ticket
--- AFTER INSERT ON TicketUpdate
--- FOR EACH ROW
--- EXECUTE PROCEDURE ticket_confirmation();
+UPDATE appointment SET TotalPrice = appointmentPrice WHERE new.appointmentID = id;
+
+RETURN NULL;
+END
+$$ LANGUAGE PLPGSQL;
+
+CREATE TRIGGER update_price_after_insert
+AFTER INSERT
+ ON appointmentTreatments
+FOR EACH ROW
+EXECUTE PROCEDURE update_appointment_price_after_insert();
+
+CREATE OR REPLACE FUNCTION update_appointment_price_after_delete()
+RETURNS TRIGGER AS $$
+Declare  
+ appointmentPrice NUMERIC(6, 2);
+BEGIN
+SELECT SUM(treatment.PRICE) into appointmentPrice
+FROM treatment INNER JOIN appointmentTreatments ON treatment.ID = appointmentTreatments.treatmentID
+INNER JOIN appointment ON appointment.ID = appointmentTreatments.appointmentID
+WHERE appointment.ID = old.appointmentID
+GROUP BY appointment.ID;
+
+SELECT COALESCE(appointmentPrice,0) into appointmentPrice;
+
+UPDATE appointment SET TotalPrice = appointmentPrice WHERE old.appointmentID = id;
+
+RETURN old;
+END
+$$ LANGUAGE PLPGSQL;
+
+CREATE TRIGGER update_price_after_delete
+AFTER DELETE
+ ON appointmentTreatments
+FOR EACH ROW
+EXECUTE PROCEDURE update_appointment_price_after_delete();
