@@ -3,7 +3,7 @@
     margin: 40px auto;
   }
 
-  ul {
+  .navUl {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -11,18 +11,72 @@
     background-color: rgb(96, 94, 94);
   }
   
-  li {
+  .navLi {
     float: left;
   }
   
   
-  li a {
+  .navLi a {
     display: block;
     color: white;
     text-align: center;
     padding: 7px 8px;
     text-decoration: none;
   }
-  li a:hover {
+  .navLi a:hover {
     background-color: rgb(66, 60, 60);
   }
+
+
+  .requests-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.treatmentItem {
+    min-width: 30%;
+    list-style: none;
+}
+
+.currentTreatments {
+    margin: 0.5rem;
+    background: white;
+    border: 2px solid black;
+    color: black;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.5s ease;
+    width: 35%;
+    border-radius: 25px;
+}
+
+.currentTreatments ul {
+    flex: 1;
+    list-style: none;
+}
+
+.decline-button, .accept-button, .deleteButton {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 25px;
+}
+
+.accept-button {
+    background: rgb(36, 240, 36);
+}
+
+.treatmentItem {
+    padding: 0rem 0.5rem;
+    font-size: 20px;
+}
+
+.fa-xmark, .fa-check {
+    pointer-events: none;
+}

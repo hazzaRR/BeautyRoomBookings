@@ -39,18 +39,19 @@ document.addEventListener('DOMContentLoaded', async function() {
         // change the day's background color just for fun
         //info.dayEl.style.backgroundColor = 'lightBlue';
       },
-      select: function(info) {
-        //alert(info.startStr  + " " + info.endStr);
-        //appointmentBtn.style.display = "inline";
-        console.log(info.startStr);
-        console.log(info.endStr);
-        appointmentBtn.disabled = false;
-      },
+      // select: function(info) {
+      //   //alert(info.startStr  + " " + info.endStr);
+      //   //appointmentBtn.style.display = "inline";
+      //   console.log(info.startStr);
+      //   console.log(info.endStr);
+      //   appointmentBtn.disabled = false;
+      // },
       unselect: function(info) {
         appointmentBtn.disabled = true;
       },
       eventClick: function(info) {
-        alert('Event: ' + info.event.id);
+        window.location.href = `/appointment/viewAppointment?id=${info.event.id}`;
+        //alert('Event: ' + info.event.id);
         // change the border color just for fun
         info.el.style.borderColor = 'red';
       },
@@ -91,13 +92,18 @@ document.addEventListener('DOMContentLoaded', async function() {
    // console.log(appointments)
 
     for (let i = 0; i < appointments.length; i++) {
+
+      let d = new Date(appointments[i].appdate);
       calendar.addEvent({
         id: appointments[i].id,
         title: appointments[i].title,
-        start: appointments[i].appdate.substring(0, 11) + appointments[i].starttime,
-        end: appointments[i].appdate.substring(0, 11) + appointments[i].endtime
+        start: d.setHours(parseInt(appointments[i].starttime.substring(0,2)), parseInt(appointments[i].starttime.substring(3,5)), parseInt(appointments[i].starttime.substring(6,8))),
+        end: d.setHours(parseInt(appointments[i].endtime.substring(0,2)), parseInt(appointments[i].endtime.substring(3,5)), parseInt(appointments[i].endtime.substring(6,8)))
       })
-        console.log(appointments[i].starttime);
+
+      // const startTime = new Date(appointments[i].appdate).toLocaleDateString() + 'T' + appointments[i].starttime;
+      // const endTime = new Date(appointments[i].appdate).toLocaleDateString() + 'T' + appointments[i].endtime;
+      // console.log(startTime.replaceAll('/', '-'));
 
     }
 

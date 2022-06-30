@@ -16,7 +16,6 @@ router.get('/', (req, res) => {
 router.post("/treatment", async(req, res) => {
     try {
 
-
         const { name } = req.body;
         const { type }= req.body;
         const { price } = req.body;

@@ -13,6 +13,45 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname,'..','public','calendar.html'));
 });
 
+router.get('/viewAppointment', async (req, res) => {
+
+    try {
+
+        const { id } = req.query;
+
+        let appointmentDetails = await pool.query("SELECT appointment.id, clients.clientname, appointment.appdate, appointment.starttime, appointment.endtime, appointment.totalprice FROM appointment LEFT JOIN clients on appointment.clientid = clients.id WHERE appointment.id = $1", [id]);
+        let treatmentDetails = await pool.query("SELECT treatment.id, treatment.treatmentname, treatment.price FROM treatment INNER JOIN appointmenttreatments on treatment.id = appointmenttreatments.treatmentid WHERE appointmenttreatments.appointmentid = $1", [id]);
+
+        console.log(treatmentDetails.rows);
+    
+        appointmentDetails = appointmentDetails.rows[0];
+
+        console.log(appointmentDetails);
+
+        res.render('viewAppointment', {
+            script: '/viewAppointment.js',
+            appointmentID : appointmentDetails.id,
+            client_name: appointmentDetails.clientname,
+            date: appointmentDetails.appdate.toLocaleDateString(),
+            start_time: appointmentDetails.starttime.substring(0,5),
+            end_time: appointmentDetails.endtime.substring(0,5),
+            total_cost: appointmentDetails.totalprice,
+            treatments: treatmentDetails.rows
+        });
+
+    } catch (err) {
+        console.error(err.message);
+        res.render("Couldnt retrieve appointments");
+    }
+
+});
+
+router.get('/createAppointment', (req, res) => {
+    res.render('newAppointment', {
+        script: '/appointment.js'
+    });
+});
+
 
 //Create new booking
 
@@ -74,9 +113,6 @@ router.get("/getAppointments", async(req,res) => {
 
 });
 
-router.get("/gethi", async(req,res) => {
-    res.json("Hi");
-});
 
 //Get specific day of bookings
 

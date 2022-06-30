@@ -1,8 +1,13 @@
 const express = require("express");
-const { continueSession } = require("pg/lib/sasl");
 const app = express();
 const pool = require('./db');
 const path = require('path');
+const {engine} = require('express-handlebars');
+
+app.engine('handlebars', engine({
+    defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
 
 
 app.use(express.json()); // => req.body
@@ -12,21 +17,17 @@ app.use("/fullcalendar_modules", express.static(path.join(__dirname , "node_modu
 
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname,'index.html'));
-});
-
-app.get('/createAppointment', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'newAppointment.html'));
+    res.render('index', {
+        script: '/index.js'
+    });
 });
 
 const adminRouter = require('./routes/adminRouter');
-const bookingRouter = require('./routes/bookingRouter');
 const appointmentRouter = require('./routes/appointmentRouter');
 const clientRouter = require('./routes/clientRouter');
 const treatmentRouter = require('./routes/treatmentRouter');
 
 app.use('/admin', adminRouter);
-app.use('/booking', bookingRouter);
 app.use('/appointment', appointmentRouter);
 app.use('/client', clientRouter);
 app.use('/treatment', treatmentRouter);

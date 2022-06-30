@@ -13,6 +13,12 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname,'..','public','displayClient.html'));
 });
 
+router.get('/newClient', (req, res) => {
+    res.render('newClient', {
+        script: '/client.js'
+    });
+});
+
 //Create new client
 
 router.post("/client", async(req, res) => {

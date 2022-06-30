@@ -22,8 +22,6 @@ async function getTreatments() {
         treatmentNameLabel.setAttribute('for',`treatment_${treatments[i].id}`);
         treatmentNameLabel.innerHTML = treatments[i].treatmentname;
 
-        // treatmentCheck.innerHTML = treatments[i].treatmentname;
-
         // grab target element reference
         const sumbitBtn = document.querySelector('#createClient');
 
@@ -31,9 +29,6 @@ async function getTreatments() {
         form.insertBefore(treatmentCheck, sumbitBtn);
         form.insertBefore(treatmentNameLabel, sumbitBtn);
         form.insertBefore(document.createElement("br"), sumbitBtn);
-        //form.appendChild(treatmentCheck);
-        //form.appendChild(treatmentNameLabel);    
-        //form.appendChild(document.createElement("br"));
 
     }
 
