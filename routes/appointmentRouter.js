@@ -159,20 +159,35 @@ router.get("/appointment/range", async(req, res) => {
 
 //delete booking
 
-router.delete("/appointment", async(req, res) => {
+router.delete("/delete", async(req, res) => {
     try {
 
-        const { date } = req.query.date;
-        const { startTime } = req.query.startDate;
+        const { id } = req.query;
 
-
-        const deleteAppointment = await pool.query("DELETE FROM appointment WHERE AppDate = $1 AND StartTime = $2", [date, startTime]);
+        const deleteAppointment = await pool.query("DELETE FROM appointment WHERE id = $1", [id]);
 
         res.json("Appointment sucessfully deleted");
 
     } catch (err) {
         console.error(err.message);
         res.json("Appointment does not exist");
+        
+    }
+});
+
+router.delete("/deleteAppTreatment", async(req, res) => {
+    try {
+
+        const { appid } = req.query;
+        const { treatmentid } = req.query;
+
+        const deleteAppointment = await pool.query("DELETE FROM appointmenttreatments WHERE appointmentid = $1 AND treatmentid = $2", [appid, treatmentid]);
+
+        res.json("Treatment for this appointment has been sucessfully deleted");
+
+    } catch (err) {
+        console.error(err.message);
+        res.json("Treatment for this appointment does not exist");
         
     }
 });

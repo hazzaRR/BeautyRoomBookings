@@ -58,7 +58,7 @@
     list-style: none;
 }
 
-.decline-button, .accept-button, .deleteButton {
+.decline-button, .accept-button, .deleteTreatmentButton {
     background-color: red;
     color: white;
     border: none;

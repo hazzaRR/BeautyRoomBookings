@@ -1,5 +1,5 @@
 <h1>Appointment for {{client_name}} on the {{date}}</h1>
-<h2>Appointment ID: #{{appointmentID}}</h2>
+<h2 id="appID">Appointment ID: #{{appointmentID}}</h2>
 <h2>Client Name: {{client_name}}</h2>
 <h2>Start Time:{{start_time}}</h2>
 <h2>End Time:{{end_time}}</h2>
@@ -18,7 +18,7 @@
         <li class="treatmentItem">Price: {{this.price}}</li>
     </ul>
 
-    <button class="deleteButton" id="deleteTreatment">Delete</button>
+    <button class="deleteTreatmentButton" id="deleteTreatment">Delete</button>
 </div>
 
 
@@ -27,6 +27,7 @@
 
 <h2>Total: £{{total_cost}}</h2>
 
-<button class="deleteButton" id="deleteAppoint">Delete Appointment</button>
+<button class="backBtn" id="backBtn">Back</button>
+<button class="deleteAppButton" id="deleteAppoint">Delete Appointment</button>
 <button class="EditButton" id="EditAppoint">Edit Appointment</button>
 

@@ -48,7 +48,7 @@ CREATE TABLE appointmentTreatments (
     treatmentID INTEGER,
     appointmentID INTEGER,
     FOREIGN KEY (treatmentID) REFERENCES treatment(ID),
-    FOREIGN KEY (appointmentID) REFERENCES appointment(ID)
+    FOREIGN KEY (appointmentID) REFERENCES appointment(ID) ON DELETE CASCADE
 );
 
 

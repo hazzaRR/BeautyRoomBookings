@@ -46,6 +46,8 @@ router.get("/getTreatments", async(req, res) => {
     }
 });
 
+router.get("/remaining")
+
 //delete treatment
 
 router.delete("/treatment/:id", async(req, res) => {
