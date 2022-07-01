@@ -113,6 +113,20 @@ router.get("/getAppointments", async(req,res) => {
 
 });
 
+router.get("/getUnusedTreatments", async(req,res) => {
+
+    try {
+        const appointments = await pool.query("SELECT * from treatment where treatment.id not in (SELECT treatmentid from appointmenttreatments where appointmentid = 14)");
+
+        res.json(appointments.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.json("Couldnt retrieve appointments");
+    }
+
+
+});
+
 
 //Get specific day of bookings
 
@@ -157,6 +171,32 @@ router.get("/appointment/range", async(req, res) => {
     }
 });
 
+router.put("/updatedAppointment", async(req, res) => {
+    try {
+
+        const { id } = req.body;
+        const { clientid } = req.body;
+        const { date } = req.body;
+        const { startTime } = req.body;
+        const { endTime } = req.body;
+
+        console.log(id)
+        console.log(clientid)
+        console.log(date)
+        console.log(startTime)
+        console.log(endTime)
+
+        const appointment = await pool.query("UPDATE appointment SET clientid = $1, appdate = $2, starttime = $3, endtime = $4 WHERE id = $5", [clientid, date, startTime, endTime, id]);
+
+        res.json("Appointment sucessfully updated");
+
+    } catch (err) {
+        console.error(err.message);
+        res.json("Appointment does not exist");
+        
+    }
+});
+
 //delete booking
 
 router.delete("/delete", async(req, res) => {
@@ -191,6 +231,7 @@ router.delete("/deleteAppTreatment", async(req, res) => {
         
     }
 });
+
     
 
 

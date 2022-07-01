@@ -1,12 +1,26 @@
+
 <h1>Appointment for {{client_name}} on the {{date}}</h1>
-<h2 id="appID">Appointment ID: #{{appointmentID}}</h2>
-<h2>Client Name: {{client_name}}</h2>
-<h2>Start Time:{{start_time}}</h2>
-<h2>End Time:{{end_time}}</h2>
+<form>
+<label for="appID">Appointment ID:</label>
+<span id="appID">#{{appointmentID}}</span>
+<br>
+<label for="name">Client Name:</label>
+<span id="cName">{{client_name}}</span>
+<br>
+<label for="appDate">Date:</label>
+<span id="appDate">{{date}}</span>
+<br>
+<label for="startTime">Start Time:</label>
+<span id="startTime">{{start_time}}</span>
+<br>
+<label for="endTime">End Time:</label>
+<span id="endTime">{{end_time}}</span>
+<br>
+</form>
 
 
 <ul>
-
+<h2>list of treatments:</h2>
 <button class="addButton" id="addTreatment">Add..</button>
     
 {{#each treatments}}

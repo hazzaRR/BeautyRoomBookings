@@ -38,13 +38,12 @@ async function getTreatments() {
 };
 
 
-async function getClients() {
+async function getClients(clientSelector) {
     
-
     const response =  await fetch('/client/getClients');
     const clients = await response.json();
 
-    const clientSelector = document.querySelector('#client_selector');
+    //const clientSelector = document.querySelector('#client_selector');
 
     clients.forEach(client => addOptions(client, clientSelector)); // add new select option for each car park
 };
@@ -107,7 +106,7 @@ function addOptions(client, selector)
 
 
 document.addEventListener('DOMContentLoaded', getTreatments);
-document.addEventListener('DOMContentLoaded', getClients);
+document.addEventListener('DOMContentLoaded', getClients.bind(event, document.querySelector('#client_selector')));
 
 form.addEventListener('submit', createAppointment);
 
