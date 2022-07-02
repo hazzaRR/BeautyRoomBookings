@@ -26,11 +26,14 @@ const adminRouter = require('./routes/adminRouter');
 const appointmentRouter = require('./routes/appointmentRouter');
 const clientRouter = require('./routes/clientRouter');
 const treatmentRouter = require('./routes/treatmentRouter');
+const statementRouter = require('./routes/statementRouter');
 
 app.use('/admin', adminRouter);
 app.use('/appointment', appointmentRouter);
 app.use('/client', clientRouter);
 app.use('/treatment', treatmentRouter);
+app.use('/statement', statementRouter);
+
 
 
 app.listen(3000, () => {
