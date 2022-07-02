@@ -28,7 +28,7 @@
 <div class="currentTreatments">
     <ul>
         <li class="treatmentItem">TreatmentID: {{this.id}}</li>
-        <li class="treatmentItem">Treatment Type: {{this.treatmentname}}</li>
+        <li class="treatmentItem">Treatment Name: {{this.treatmentname}}</li>
         <li class="treatmentItem">Price: {{this.price}}</li>
     </ul>
 
@@ -39,7 +39,7 @@
 {{/each}}
 </ul>
 
-<h2>Total: £{{total_cost}}</h2>
+<h2 id="totalPrice">Total: £{{total_cost}}</h2>
 
 <button class="backBtn" id="backBtn">Back</button>
 <button class="deleteAppButton" id="deleteAppoint">Delete Appointment</button>

@@ -83,7 +83,7 @@ router.post("/createAppointment", async(req, res) => {
     }
     });
 
-    //Get all bookings
+//Get all bookings
 
 router.get("/getAllAppointments", async(req, res) => {
 
@@ -113,10 +113,13 @@ router.get("/getAppointments", async(req,res) => {
 
 });
 
-router.get("/getUnusedTreatments", async(req,res) => {
+router.get("/getAvailableTreatments", async(req,res) => {
+
+    const { id } = req.query;
+    console.log(id);
 
     try {
-        const appointments = await pool.query("SELECT * from treatment where treatment.id not in (SELECT treatmentid from appointmenttreatments where appointmentid = 14)");
+        const appointments = await pool.query("SELECT * from treatment where treatment.id not in (SELECT treatmentid from appointmenttreatments where appointmentid = $1) ORDER BY treatmenttype ASC", [id]);
 
         res.json(appointments.rows);
     } catch (err) {
@@ -231,6 +234,30 @@ router.delete("/deleteAppTreatment", async(req, res) => {
         
     }
 });
+
+
+router.post("/addTreatments", async(req, res) => {
+
+    try {
+
+        const { id } = req.body;
+        const { treatments } = req.body;
+
+        for (let i = 0; i < treatments.length; i++) {
+            const newAppTreatments =  await pool.query("INSERT INTO appointmenttreatments (treatmentid, appointmentid) VALUES ($1, $2) RETURNING *", [treatments[i], id]);
+        }
+
+        res.json("Treatments added");
+
+    } catch (err) {
+        console.error(err.message);
+        res.json("Treatment for this appointment does not exist");
+        
+    }
+
+
+
+})
 
     
 

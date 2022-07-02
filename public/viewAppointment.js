@@ -56,8 +56,6 @@ backBtn.addEventListener('click', () => {
 
 const updateAppointment = async () => {
 
-    console.log("Hey")
-
     const clientName = document.querySelector('#cName');
     const cNameInput = document.createElement('select');
     cNameInput.id = 'cname';
@@ -151,3 +149,106 @@ const updateAppointment = async () => {
 
 //Edit button functionality, allowing you to update appointment details
 document.querySelector('#EditAppoint').addEventListener('click', updateAppointment);
+
+
+
+const showAvailableTreatments = async () => {
+
+    let appID = document.querySelector('#appID').innerHTML;
+    const response = await fetch(`/appointment/getAvailableTreatments?id=${appID.split("#")[1]}`);
+
+    const treatments = await response.json();
+
+
+    const availableTreatmentsForm = document.createElement('form');
+    availableTreatmentsForm.id = "avaTreatmentsContainer";
+
+    for (let i = 0; i < treatments.length; i++) {
+
+        const treatmentCheck =  document.createElement("INPUT");
+        treatmentCheck.setAttribute("type", "checkbox");
+        treatmentCheck.setAttribute('id',`treatment_${treatments[i].id}`);
+        treatmentCheck.setAttribute('name',`treatment_${treatments[i].id}`);
+        treatmentCheck.classList.add('treatment');
+
+        const treatmentNameLabel = document.createElement("label");
+        treatmentNameLabel.setAttribute('for',`treatment_${treatments[i].id}`);
+        treatmentNameLabel.innerHTML = treatments[i].treatmentname;
+        const treatmentSpan = document.createElement("span");
+        treatmentSpan.innerHTML = ` £${treatments[i].price}`;
+
+        // grab target element reference
+        const sumbitBtn = document.querySelector('#createClient');
+
+        // insert the element before target element
+        availableTreatmentsForm.appendChild(treatmentCheck);
+        availableTreatmentsForm.appendChild(treatmentNameLabel);
+        availableTreatmentsForm.appendChild(treatmentSpan);
+        availableTreatmentsForm.appendChild(document.createElement("br"));
+    }
+
+    const submitBtn =  document.createElement("INPUT");
+    submitBtn.setAttribute("type", "submit");
+    submitBtn.id = "addTreatmentsBtn";
+
+    availableTreatmentsForm.appendChild(submitBtn);
+
+    document.body.appendChild(availableTreatmentsForm);
+
+
+    submitBtn.addEventListener('click', async (event) => {
+
+        event.preventDefault();
+
+        console.log("hey laddy");
+
+        const id = appID.split("#")[1];
+        let treatments = [];
+
+        //gets all the selected treatments
+        let inputElements = document.getElementsByClassName('treatment');
+        for (let i=0; i < inputElements.length; i++){
+          if(inputElements[i].checked) {
+            treatments.push(inputElements[i].id.substring(10));
+          }
+        };
+
+                //create a new request object
+        const newTreatments = {
+            id,
+            treatments
+        };
+
+        // turns newAppointment object into JSON string
+        const serializedMessage = JSON.stringify(newTreatments);
+
+        // posts JSON string to the server at the end point /appointment/createAppointment
+        const response = await fetch('/appointment/addTreatments', { method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                            body: serializedMessage
+                        }
+                    )
+
+        const json = await response.json();
+
+        window.location.href = `/appointment/viewAppointment?id=${id}`
+
+
+    })
+
+
+
+
+
+
+    
+
+
+
+
+};
+
+document.querySelector('#addTreatment').addEventListener('click', showAvailableTreatments, {once : true});
+

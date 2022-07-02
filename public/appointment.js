@@ -21,6 +21,8 @@ async function getTreatments() {
         const treatmentNameLabel = document.createElement("label");
         treatmentNameLabel.setAttribute('for',`treatment_${treatments[i].id}`);
         treatmentNameLabel.innerHTML = treatments[i].treatmentname;
+        const treatmentSpan = document.createElement("span");
+        treatmentSpan.innerHTML = ` £${treatments[i].price}`;
 
         // grab target element reference
         const sumbitBtn = document.querySelector('#createClient');
@@ -28,6 +30,7 @@ async function getTreatments() {
         // insert the element before target element
         form.insertBefore(treatmentCheck, sumbitBtn);
         form.insertBefore(treatmentNameLabel, sumbitBtn);
+        form.insertBefore(treatmentSpan, sumbitBtn);
         form.insertBefore(document.createElement("br"), sumbitBtn);
 
     }
