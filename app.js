@@ -17,6 +17,12 @@ app.use("/fullcalendar_modules", express.static(path.join(__dirname , "node_modu
 
 
 app.get('/', (req, res) => {
+    res.render('login', {
+        script: '/login.js'
+    });
+});
+
+app.get('/home', (req, res) => {
     res.render('index', {
         script: '/index.js'
     });
@@ -27,12 +33,32 @@ const appointmentRouter = require('./routes/appointmentRouter');
 const clientRouter = require('./routes/clientRouter');
 const treatmentRouter = require('./routes/treatmentRouter');
 const statementRouter = require('./routes/statementRouter');
+const loginRouter = require('./routes/loginRouter');
 
-app.use('/admin', adminRouter);
-app.use('/appointment', appointmentRouter);
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.slit(' ')[1];
+
+    if (token == null) {
+        return res.sendStatus(401);
+    }
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) {
+            return res.sendStatus(403);
+        }
+        req.user = user;
+        next();
+    })
+
+};
+
+app.use('/admin',adminRouter);
+app.use('/appointment',appointmentRouter);
 app.use('/client', clientRouter);
-app.use('/treatment', treatmentRouter);
-app.use('/statement', statementRouter);
+app.use('/treatment',treatmentRouter);
+app.use('/statement',statementRouter);
+app.use('/login', loginRouter);
 
 
 

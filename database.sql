@@ -5,7 +5,7 @@ CREATE DATABASE beauty_room;
 CREATE TABLE admins (
     ID SERIAL PRIMARY KEY,
     username VARCHAR(40) UNIQUE,
-    AdminPassword VARCHAR(40)
+    password VARCHAR(100)
 );
 
 CREATE TABLE clients (

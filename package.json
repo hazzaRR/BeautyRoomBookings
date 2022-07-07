@@ -17,9 +17,12 @@
   },
   "homepage": "https://github.com/hazzaRR/BeautyRoomBookings#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.1",
     "express": "^4.17.3",
     "express-handlebars": "^6.0.6",
     "fullcalendar": "^5.11.0",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.3"
   },
   "devDependencies": {

@@ -48,8 +48,10 @@ document.querySelector('#statementBtn').addEventListener('click', async (event) 
         headings.appendChild(heading_3);
         thead.appendChild(headings);
 
+        let totalPrice = 0;
         for (let i = 0; i < statements.length; i++) {
             //console.log(statements[i].totalprice);
+            totalPrice += parseInt(statements[i].totalprice);
 
 
             // Creating and adding data to second row of the table
@@ -66,13 +68,12 @@ document.querySelector('#statementBtn').addEventListener('click', async (event) 
             data.appendChild(dataPrice);
             tbody.appendChild(data);
 
-            // const statement = document.createElement('p');
+        }
 
-            // statement.innerHTML = statements[i].clientname + " " + statements[i].appdate + " £" + statements[i].totalprice;
+        const totalPriceEl = document.createElement('h3');
+        totalPriceEl.innerHTML = "Total: £" + totalPrice;
 
-            // document.body.appendChild(statement);
-
-    }
+        tableDiv.appendChild(totalPriceEl);
 
     }
     else {
