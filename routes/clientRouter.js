@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-
 const pool = require('../db');
 
 
@@ -42,7 +41,6 @@ router.post("/client", async(req, res) => {
 //Get all clients
 
 router.get("/getClients", async(req, res) => {
-
     try {
 
         const clients = await pool.query("SELECT * FROM clients");

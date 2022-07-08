@@ -22,8 +22,6 @@ router.post("/admin", async (req, res) => {
         const { password } = req.body;
 
         const hashedPassword = await bcrypt.hash(password, 10);
-
-        console.log(hashedPassword);
     
         const newAdmin = await pool.query("INSERT INTO admins (username, password) VALUES ($1, $2)", [username, hashedPassword]);
     
@@ -35,7 +33,6 @@ router.post("/admin", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-    console.log("Hey");
     try {
         const { username } = req.body;
         const { password } = req.body;
@@ -51,7 +48,7 @@ router.post("/", async (req, res) => {
 
         //if the password provided matches the hashed password in the database the user is given access to the system.
         if (await bcrypt.compare(password, admin.password)) {
-            const accessToken = jwt.sign(admin, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'});
+            const accessToken = jwt.sign(admin, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '7d'});
             res.status(200).json(
                 {
                 "accessToken" : accessToken

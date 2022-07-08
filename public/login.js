@@ -33,6 +33,7 @@ async function loginAttempt(event) {
         try
         {
             localStorage.setItem('accessToken', json.accessToken)
+            document.cookie = "token="+json.accessToken;
             
             console.log("user in session storage");
 
