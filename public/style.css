@@ -1,3 +1,9 @@
+body {
+  font-family: Lato, sans-serif;
+  color: #181818;
+  background-color: rgb(255, 243, 243);
+}
+
 #calendar {
     max-width: 1100px;
     margin: 40px auto;
@@ -79,4 +85,52 @@
 
 .fa-xmark, .fa-check {
     pointer-events: none;
+}
+
+.treatment-section {
+  margin: auto;
+  margin-top: 20px;
+  width: 50%;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 20px;
+}
+
+.treatmentTypes {
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+  margin: 10px;
+  padding-bottom: 10px;
+}
+
+.treatment-ul {
+  padding: 0px;
+}
+
+.treatment-li {
+  list-style-type: none;
+  /* border: 3px solid black; */
+  width: 95%;
+  margin: 10px;
+  padding: 10px;
+
+}
+
+.treatment-li:hover {
+  background-color: rgba(206, 206, 206, 0.545);
+  cursor: pointer;
+  transform: scale(1.03);
+}
+
+.selected-treatment {
+  background-color: rgba(64, 223, 24, 0.708);
+
+}
+
+.treatmentname {
+  margin: 1px;
+}
+
+.treatment-info {
+  color: rgb(102, 102, 102);
+  font-size: 13px;
 }

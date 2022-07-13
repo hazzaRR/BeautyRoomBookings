@@ -82,7 +82,7 @@ const loginRouter = require('./routes/loginRouter');
 app.use('/admin', authenticateToken, adminRouter);
 app.use('/appointment', authenticateToken, appointmentRouter);
 app.use('/client', authenticateToken, clientRouter);
-app.use('/treatment', authenticateToken, treatmentRouter);
+app.use('/treatment', treatmentRouter);
 app.use('/statement', authenticateToken, statementRouter);
 app.use('/login', loginRouter);
 

@@ -8,9 +8,55 @@ const router = express.Router();
 
 router.use(express.json()); // => req.body
 
-router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname,'..','public','treatment.html'));
+// router.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname,'..','public','treatment.html'));
+// });
+
+router.get('/', async (req, res) => {
+
+    try {
+        let treatmentTypes = await pool.query("SELECT DISTINCT TreatmentType FROM treatment ORDER BY treatmenttype ASC");
+        let treatment = await pool.query("SELECT id, treatmentname, TreatmentType, price FROM treatment ORDER BY treatmenttype ASC");
+
+
+        let treatments = [];
+
+
+        for (let i = 0; i < treatmentTypes.rows.length; i++) {
+            console.log(treatmentTypes.rows[i].treatmenttype)
+            let data = {
+                treatmenttype: treatmentTypes.rows[i].treatmenttype,
+                treatment: []
+            }
+            for (let j = 0; j < treatment.rows.length; j++) {
+                if(treatmentTypes.rows[i].treatmenttype === treatment.rows[j].treatmenttype) {
+                    data.treatment.push(treatment.rows[j]);
+                }
+            }
+
+            treatments.push(data);
+        }
+
+        // console.log(treatments);
+
+        // res.json(treatments);
+
+
+        // console.log(treatmentTypes.rows);
+        // console.log(treatment.rows);
+
+        res.render('treatment', {
+            script: '/viewTreatment.js',
+            treatments: treatments
+        });
+
+    } catch (err) {
+        console.error(err.message);
+        res.render("Couldnt retrieve treatments");
+    }
+
 });
+
 
 router.post("/treatment", async(req, res) => {
     try {
@@ -44,8 +90,6 @@ router.get("/getTreatments", async(req, res) => {
         res.json("Couldnt retrieve treatments");
     }
 });
-
-router.get("/remaining")
 
 //delete treatment
 
