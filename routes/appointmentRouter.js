@@ -44,10 +44,41 @@ router.get('/viewAppointment', async (req, res) => {
 
 });
 
-router.get('/createAppointment', (req, res) => {
-    res.render('newAppointment', {
-        script: '/appointment.js'
-    });
+
+router.get('/createAppointment', async (req, res) => {
+
+    try {
+        let treatmentTypes = await pool.query("SELECT DISTINCT TreatmentType FROM treatment ORDER BY treatmenttype ASC");
+        let treatment = await pool.query("SELECT id, treatmentname, TreatmentType, price FROM treatment ORDER BY treatmenttype ASC");
+
+
+        let treatments = [];
+
+
+        for (let i = 0; i < treatmentTypes.rows.length; i++) {
+            let data = {
+                treatmenttype: treatmentTypes.rows[i].treatmenttype,
+                treatment: []
+            }
+            for (let j = 0; j < treatment.rows.length; j++) {
+                if(treatmentTypes.rows[i].treatmenttype === treatment.rows[j].treatmenttype) {
+                    data.treatment.push(treatment.rows[j]);
+                }
+            }
+
+            treatments.push(data);
+        }
+
+        res.render('newAppointment', {
+            script: '/appointment.js',
+            treatments: treatments
+        });
+
+    } catch (err) {
+        console.error(err.message);
+        res.render("Couldnt retrieve treatments");
+    }
+
 });
 
 

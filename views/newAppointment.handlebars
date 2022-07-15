@@ -1,19 +1,61 @@
-<div>
-        <form id="appointmentForm">
 
-            <label for="client">Name</label>
-            <select name="client" id="client_selector" required></select>
-            <br>
-            <label for="date">Date</label>
-            <input type="date" name="date" id="date" required>
-            <br>
-            <label for="start-time">Start Time</label>
-            <input type="time" name="start-time" id="start-time" required>
-            <br>
-            <label for="end-time">End Time</label>
-            <input type="time" name="end-time" id="end-time" required>
-            <br>
-            <input type="submit" id="createClient" value="Create">
+<section class="section-container">
 
-        </form>
+  <div class="page">
+    <div class="field field_v3">
+      <label for="client_selector" class="ha-screen-reader">Client</label>
+      <select id="client_selector" class="field__input"></select>
+      <span class="field__label-wrap" aria-hidden="true">
+        <span class="field__label">Client</span>
+      </span>
     </div>
+    <div class="field field_v3">
+      <label for="date" class="ha-screen-reader">Date</label>
+      <input id="date" type="date" class="field__input">
+      <span class="field__label-wrap" aria-hidden="true">
+        <span class="field__label">Date</span>
+      </span>
+    </div>    
+    <div class="field field_v3">
+      <label for="start-time" class="ha-screen-reader">Start Time</label>
+      <input id="start-time" type="time" class="field__input">
+      <span class="field__label-wrap" aria-hidden="true">
+        <span class="field__label">Start Time</span>
+      </span>
+    </div>
+      <div class="field field_v3">
+      <label for="end-time" class="ha-screen-reader">End Time</label>
+      <input id="end-time" type="time" class="field__input">
+      <span class="field__label-wrap" aria-hidden="true">
+        <span class="field__label">End Time</span>
+      </span>
+    </div>
+  </div>
+    
+    {{#each treatments}}
+
+
+    <div>
+    <h4 class="treatmentTypes">{{this.treatmenttype}}</h4>
+
+        <ul class="treatment-ul">
+        {{#each this.treatment}}
+            <li class="treatment-li" id="{{this.id}}">
+                <div>
+                    <h5 class="treatmentname">{{this.treatmentname}}</h5>
+                </div>
+                <div>
+                    <span class="treatment-info">£{{this.price}}</span>
+                    <span>.</span>
+                </div>
+            </li>
+        {{/each}}
+        </ul>
+
+    {{/each}}
+    </div>
+
+        <button class="button-31" role="button" id="submitBtn">Create</button>    
+
+    {{!-- </div> --}}
+</section>

@@ -23,7 +23,6 @@ router.get('/', async (req, res) => {
 
 
         for (let i = 0; i < treatmentTypes.rows.length; i++) {
-            console.log(treatmentTypes.rows[i].treatmenttype)
             let data = {
                 treatmenttype: treatmentTypes.rows[i].treatmenttype,
                 treatment: []
@@ -36,14 +35,6 @@ router.get('/', async (req, res) => {
 
             treatments.push(data);
         }
-
-        // console.log(treatments);
-
-        // res.json(treatments);
-
-
-        // console.log(treatmentTypes.rows);
-        // console.log(treatment.rows);
 
         res.render('treatment', {
             script: '/viewTreatment.js',

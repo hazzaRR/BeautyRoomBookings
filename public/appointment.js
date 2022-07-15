@@ -1,73 +1,37 @@
-const form = document.querySelector('#appointmentForm');
-
-async function getTreatments() {
-    
-
-    const response =  await fetch('/treatment/getTreatments');
-    const treatments = await response.json();
+import { getClients } from './reusable.js';
 
 
+const client_selector = document.querySelector('#client_selector');
+const date_selector = document.querySelector('#date');
+const startTime_selector = document.querySelector('#start-time');
+const endTime_selector = document.querySelector('#end-time');
 
-    for(let i = 0; i < treatments.length; i++) {
-        console.log(treatments[i].treatmentname);
+document.addEventListener('DOMContentLoaded', await getClients.bind(event, document.querySelector('#client_selector')));
 
+const treatments = document.querySelectorAll('.treatment-li');
 
-        const treatmentCheck =  document.createElement("INPUT");
-        treatmentCheck.setAttribute("type", "checkbox");
-        treatmentCheck.setAttribute('id',`treatment_${treatments[i].id}`);
-        treatmentCheck.setAttribute('name',`treatment_${treatments[i].id}`);
-        treatmentCheck.classList.add('treatment');
-
-        const treatmentNameLabel = document.createElement("label");
-        treatmentNameLabel.setAttribute('for',`treatment_${treatments[i].id}`);
-        treatmentNameLabel.innerHTML = treatments[i].treatmentname;
-        const treatmentSpan = document.createElement("span");
-        treatmentSpan.innerHTML = ` £${treatments[i].price}`;
-
-        // grab target element reference
-        const sumbitBtn = document.querySelector('#createClient');
-
-        // insert the element before target element
-        form.insertBefore(treatmentCheck, sumbitBtn);
-        form.insertBefore(treatmentNameLabel, sumbitBtn);
-        form.insertBefore(treatmentSpan, sumbitBtn);
-        form.insertBefore(document.createElement("br"), sumbitBtn);
-
-    }
-
-
-
-
+for (let i = 0; i < treatments.length; i++) {
+    treatments[i].addEventListener('click', () => {
+        treatments[i].classList.toggle('selected-treatment');
+    });
 };
 
-
-async function getClients(clientSelector) {
-    
-    const response =  await fetch('/client/getClients');
-    const clients = await response.json();
-
-    //const clientSelector = document.querySelector('#client_selector');
-
-    clients.forEach(client => addOptions(client, clientSelector)); // add new select option for each car park
-};
-
-async function createAppointment(event) {
+const createAppointment = async (event) => {
 
     event.preventDefault();
 
-    const clientId = document.getElementById('client_selector').value;
-    const date = document.getElementById('date').value;
-    const startTime = document.getElementById('start-time').value;
-    const endTime = document.getElementById('end-time').value;
+    const clientId = client_selector.value;
+    const date = date_selector.value;
+    const startTime = startTime_selector.value;
+    const endTime = endTime_selector.value;
     let treatments = [];
 
-    //gets all the selected treatments
-    let inputElements = document.getElementsByClassName('treatment');
-    for (let i=0; i < inputElements.length; i++){
-      if(inputElements[i].checked) {
-        treatments.push(inputElements[i].id.substring(10));
-      }
-    };
+    const selectedTreatments = document.querySelectorAll('.selected-treatment');
+
+    for (let i = 0; i < selectedTreatments.length; i++) {
+        treatments.push(selectedTreatments[i].id);
+    }
+
 
     //create a new request object
     const newAppointment = {
@@ -77,6 +41,8 @@ async function createAppointment(event) {
         clientId,
         treatments
     };
+
+    console.log(newAppointment);
 
     // turns newAppointment object into JSON string
     const serializedMessage = JSON.stringify(newAppointment);
@@ -93,25 +59,19 @@ async function createAppointment(event) {
     const json = await response.json();
 
     alert("Appointment has successfully been made");
-    form.reset();
+
+    for (let i = 0; i < selectedTreatments.length; i++) {
+        treatments.push(selectedTreatments[i].classList.toggle('selected-treatment'));
+    };
+
+
+    //window.location.href = 'appointment/createAppointment';
+
+    date_selector.value = '';
+    startTime_selector.value = '';
+    endTime_selector.value = '';
 
 };
 
 
-//adds the clients to the select tag 
-function addOptions(client, selector)
-{
-    const option = document.createElement("option");
-    option.value = client.id;
-    option.text = client.clientname;
-    selector.add(option);
-}
-
-
-document.addEventListener('DOMContentLoaded', getTreatments);
-document.addEventListener('DOMContentLoaded', getClients.bind(event, document.querySelector('#client_selector')));
-
-form.addEventListener('submit', createAppointment);
-
-
-
+document.querySelector('#submitBtn').addEventListener('click', createAppointment);

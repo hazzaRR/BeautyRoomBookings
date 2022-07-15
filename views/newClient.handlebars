@@ -1,15 +1,29 @@
-    <div class="container" id="regContainer">
-        <form id="clientForm" action="" method="POST">
-            <label for="name">Name</label>
-            <input type="text" name="name" placeholder="name" id="name" required>
-            <br>
-            <label for="Email">Email</label>
-            <input type="email" name="email" placeholder="email" id="email" required>
-            <br>
-            <label for="number">Phone Number</label>
-            <input type="tel" name="number" placeholder="number" id="number" required>
-            <br>
-
-            <input type="submit" id="createClient" value="Create">
-        </form>
+<section class="section-container section-center">
+  <div class="page">
+    <div class="field field_v2">
+      <label for="name" class="ha-screen-reader">Date</label>
+      <input id="name"  type="text" class="field__input" placeholder="e.g John Doe" required>
+      <span class="field__label-wrap" aria-hidden="true">
+        <span class="field__label">Name</span>
+      </span>
+    </div>    
+    <div class="field field_v2">
+      <label for="email" class="ha-screen-reader">Email</label>
+      <input id="email" type="email" class="field__input"  placeholder="e.g johndoe@email.com" required>
+      <span class="field__label-wrap" aria-hidden="true">
+        <span class="field__label">Email</span>
+      </span>
     </div>
+      <div class="field field_v2">
+      <label for="number" class="ha-screen-reader">Phone Number</label>
+      <input id="number" type="tel" class="field__input" placeholder="e.g 07777777777" required>
+      <span class="field__label-wrap" aria-hidden="true">
+        <span class="field__label">Phone Number</span>
+      </span>
+    </div>
+
+        <!-- HTML !-->
+    <button class="button-31" role="button" id="createClient">Create</button>
+
+  </div>
+</section>

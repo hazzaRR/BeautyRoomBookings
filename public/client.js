@@ -27,22 +27,3 @@
 //     console.log(response.json);
 
 // };
-
-
-async function getAllClients(event) {
-    event.preventDefault();
-
-
-    const response = await fetch('/client');
-
-    const clients = response.json;
-
-    for (let i = 0; i < clients.length; i++) {
-        console.log(clients[i]);
-    }
-
-};
-
-const clientContainer = document.querySelector('.clientContainer');
-
-clientContainer.addEventListener('DOMContentLoaded', getAllClients);

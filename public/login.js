@@ -1,15 +1,15 @@
-console.log("hey harry");
 //function runs whenever a form is submitted sends it to server to check if the email and password are correct
 async function loginAttempt(event) {
     event.preventDefault();
 
     //selects the form element from form.hmtl
-    const formData = document.querySelector('#loginForm');
+    const username = document.getElementById('username');
+    const password = document.getElementById('password');
 
     //create a new object that stores email and password
     const loginCreds = {
-        username: formData.elements.namedItem('username').value,
-        password: formData.elements.namedItem('password').value,
+        username: username.value,
+        password: password.value,
     };
 
     // turns loginCreds object into JSON string

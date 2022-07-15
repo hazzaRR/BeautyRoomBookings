@@ -1,4 +1,4 @@
-<div class="container" id="loginContainer">
+{{!-- <div class="container" id="loginContainer">
   <form id="loginForm" action="" method="POST">
     <label for="username" class="loginLabels">Username</label>
     <input class="textInput" type="text" name="username" placeholder="..." id="username">
@@ -8,4 +8,34 @@
     <br>
     <input type="submit" id="login" value="Log In">
   </form>
-</div>
+</div> --}}
+
+
+
+<section class="section-container section-center">
+  {{!-- <div class="page"> --}}
+    <form class="page" id="loginForm" action="" method="POST">
+    <div class="field field_v2">
+      <label for="username" class="ha-screen-reader">Username</label>
+      <input id="username"  type="text" class="field__input" placeholder="e.g John123" required>
+      <span class="field__label-wrap" aria-hidden="true">
+        <span class="field__label">Username</span>
+      </span>
+    </div>    
+    <div class="field field_v2">
+      <label for="password" class="ha-screen-reader">Password</label>
+      <input id="password" type="password" class="field__input"  placeholder="Password" required>
+      <span class="field__label-wrap" aria-hidden="true">
+        <span class="field__label">Password</span>
+      </span>
+    </div>
+  </div>
+    
+    <!-- HTML !-->
+    <button class="button-31" role="button" id="login">Login</button>
+
+
+  </form>
+
+
+</section>
