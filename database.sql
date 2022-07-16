@@ -22,17 +22,6 @@ CREATE TABLE treatment (
     PRICE NUMERIC(6, 2)
 );
 
--- CREATE TABLE bookings (
---     BookingDate DATE,
---     StartTime TIME,
---     EndTime TIME,
---     ClientID INTEGER,
---     treatmentId INTEGER,
---     FOREIGN KEY (ClientID) REFERENCES clients(ID),
---     FOREIGN KEY (treatmentId) REFERENCES treatment(ID),
---     CONSTRAINT BookingID PRIMARY KEY(BookingDate, StartTime)
--- );
-
 CREATE TABLE appointment (
     ID SERIAL PRIMARY KEY,
     AppDate DATE,

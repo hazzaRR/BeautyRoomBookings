@@ -48,6 +48,33 @@ router.get('/', async (req, res) => {
 
 });
 
+router.get('/viewTreatment', async (req, res) => {
+
+    try {
+
+        const { id } = req.query;
+
+        let treatmentDetails = await pool.query("SELECT id, treatmentname, treatmenttype, price FROM treatment WHERE id = $1", [id]);
+
+        console.log(treatmentDetails.rows);
+    
+        treatmentDetails = treatmentDetails.rows[0];
+
+        res.render('individualTreatment', {
+            script: '/viewTreatment.js',
+            treatmentID : treatmentDetails.id,
+            name: treatmentDetails.treatmentname,
+            type: treatmentDetails.treatmenttype,
+            price: treatmentDetails.price
+        });
+
+    } catch (err) {
+        console.error(err.message);
+        res.render("Couldnt retrieve treatment");
+    }
+
+});
+
 
 router.post("/treatment", async(req, res) => {
     try {
@@ -79,6 +106,25 @@ router.get("/getTreatments", async(req, res) => {
     } catch (err) {
         console.error(err.message);
         res.json("Couldnt retrieve treatments");
+    }
+});
+
+router.put("/updatedTreatment", async(req, res) => {
+    try {
+
+        const { id } = req.body;
+        const { name } = req.body;
+        const { type } = req.body;
+        const { price } = req.body;
+
+        const treatment = await pool.query("UPDATE treatment SET treatmentname = $1, treatmenttype = $2, price = $3 WHERE id = $4", [name, type, price, id]);
+
+        res.json("Treatment sucessfully updated");
+
+    } catch (err) {
+        console.error(err.message);
+        res.json("Appointment does not exist");
+        
     }
 });
 

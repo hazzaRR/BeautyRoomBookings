@@ -1,10 +1,21 @@
 <h1>Wow this is the statement page</h1>
 
-
 <form>
-  <label for="start-date">From:</label>
-  <input type="date" id="start-date" name="start-date">
-  <label for="end-date">To:</label>
-  <input type="date" id="end-date" name="end-date">
-  <input type="submit" id="statementBtn">
+<div class="field field_v2">
+  <label for="start-date" class="ha-screen-reader">From</label>
+  <input id="start-date"  type="date" class="field__input" placeholder="e.g John Doe" required>
+  <span class="field__label-wrap" aria-hidden="true">
+    <span class="field__label">From</span>
+  </span>
+</div>    
+<div class="field field_v2">
+  <label for="end-date" class="ha-screen-reader">To</label>
+  <input id="end-date" type="date" class="field__input"  placeholder="e.g johndoe@email.com" required>
+  <span class="field__label-wrap" aria-hidden="true">
+    <span class="field__label">To</span>
+  </span>
+</div>
+
+<input type="submit" id="statementBtn">
+
 </form>
