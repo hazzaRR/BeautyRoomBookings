@@ -6,5 +6,5 @@
 - improve styling
 - addTreatments
 - deleteTreatments
-- updateTreatment
+- updateTreatment done
 - get total to automatically update on appointment page

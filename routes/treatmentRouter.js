@@ -61,7 +61,7 @@ router.get('/viewTreatment', async (req, res) => {
         treatmentDetails = treatmentDetails.rows[0];
 
         res.render('individualTreatment', {
-            script: '/viewTreatment.js',
+            script: '/viewIndividualTreatment.js',
             treatmentID : treatmentDetails.id,
             name: treatmentDetails.treatmentname,
             type: treatmentDetails.treatmenttype,
@@ -76,7 +76,7 @@ router.get('/viewTreatment', async (req, res) => {
 });
 
 
-router.post("/treatment", async(req, res) => {
+router.post("/", async(req, res) => {
     try {
 
         const { name } = req.body;
@@ -130,10 +130,12 @@ router.put("/updatedTreatment", async(req, res) => {
 
 //delete treatment
 
-router.delete("/treatment/:id", async(req, res) => {
+router.delete("/", async(req, res) => {
     try {
 
-        const { id } = req.params;
+        const { id } = req.query;
+
+        console.log(id);
 
         const deleteTreatment = await pool.query("DELETE FROM Treatment WHERE id = $1", [id]);
 
