@@ -59,7 +59,6 @@ const authenticateToken = (req, res, next) => {
 
 };
 
-
 app.get('/', (req, res) => {
     res.render('login', {
         script: '/login.js'
@@ -82,7 +81,7 @@ const loginRouter = require('./routes/loginRouter');
 app.use('/admin', authenticateToken, adminRouter);
 app.use('/appointment', authenticateToken, appointmentRouter);
 app.use('/client', authenticateToken, clientRouter);
-app.use('/treatment', treatmentRouter);
+app.use('/treatment', authenticateToken, treatmentRouter);
 app.use('/statement', authenticateToken, statementRouter);
 app.use('/login', loginRouter);
 

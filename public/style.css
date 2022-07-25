@@ -353,6 +353,19 @@ HELPERS
   grid-gap: 30px;
 }
 
+#statementTable {
+  margin-top: 1em;
+  border: 1px solid;
+  width: 100%;
+  text-align: left;
+}
+
+.statementTh {
+  height: 50px;
+}
+
+.statementRow:nth-child(even) {background-color: #f2f2f2;}
+
 
 
 

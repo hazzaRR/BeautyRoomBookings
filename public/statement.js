@@ -39,14 +39,19 @@ document.querySelector('#statementBtn').addEventListener('click', async (event) 
         const headings = document.createElement('tr');
         const heading_1 = document.createElement('th');
         heading_1.innerHTML = "id";
+        heading_1.classList.add('statementTh');
         const heading_2 = document.createElement('th');
         heading_2.innerHTML = "Name";
+        heading_2.classList.add('statementTh');
         const heading_3 = document.createElement('th');
         heading_3.innerHTML = "Treatment";
+        heading_3.classList.add('statementTh');
         const heading_4 = document.createElement('th');
         heading_4.innerHTML = "Date";
+        heading_4.classList.add('statementTh');
         const heading_5 = document.createElement('th');
         heading_5.innerHTML = "Treatment Price";
+        heading_5.classList.add('statementTh');
         headings.appendChild(heading_1);
         headings.appendChild(heading_2);
         headings.appendChild(heading_3);
@@ -62,6 +67,7 @@ document.querySelector('#statementBtn').addEventListener('click', async (event) 
 
             // Creating and adding data to second row of the table
             const data = document.createElement('tr');
+            data.classList.add('statementRow');
             const dataID = document.createElement('td');
             dataID.innerHTML = statements[i].id;
             const dataName = document.createElement('td');

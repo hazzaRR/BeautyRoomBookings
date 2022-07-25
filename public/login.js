@@ -1,3 +1,5 @@
+document.body.removeChild(document.querySelector('nav'));
+
 //function runs whenever a form is submitted sends it to server to check if the email and password are correct
 async function loginAttempt(event) {
     event.preventDefault();
