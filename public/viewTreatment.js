@@ -8,3 +8,12 @@ for (let i = 0; i < treatments.length; i++) {
         window.location.href = `/treatment/viewTreatment?id=${treatments[i].id}`;
     })
 };
+
+const addTreatmentBtn = document.querySelector('#addTreatment');
+
+
+addTreatmentBtn.addEventListener('click', () => {
+    window.location.href = `/treatment/newTreatment`;
+})
+
+

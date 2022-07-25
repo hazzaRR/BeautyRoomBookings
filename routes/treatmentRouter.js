@@ -8,10 +8,6 @@ const router = express.Router();
 
 router.use(express.json()); // => req.body
 
-// router.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname,'..','public','treatment.html'));
-// });
-
 router.get('/', async (req, res) => {
 
     try {
@@ -75,16 +71,22 @@ router.get('/viewTreatment', async (req, res) => {
 
 });
 
+router.get('/newTreatment', async (req, res) => {
 
-router.post("/", async(req, res) => {
+    res.render('newTreatment', {
+        script: '/newTreatment.js'
+    });
+
+});
+
+
+router.post("/createTreatment", async(req, res) => {
     try {
 
         const { name } = req.body;
         const { type }= req.body;
         const { price } = req.body;
-
-        console.log(price);
-
+        
         const newTreatment = await pool.query("INSERT INTO treatment (TreatmentName, TreatmentType, Price) VALUES ($1, $2, $3)", [name, type, price]);
         
         res.json("Treatment successfully created");
