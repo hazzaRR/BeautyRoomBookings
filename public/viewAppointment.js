@@ -26,7 +26,8 @@ const deleteTreatment = async (event) => {
     //gets the treatment id just selected
     const item = event.target;
     const treatment = item.parentElement;
-    const treatmentID = treatment.childNodes[1].childNodes[1].innerHTML.split(" ")[1];
+    //const treatmentID = treatment.childNodes[1].childNodes[1].innerHTML.split(" ")[1];
+    const treatmentID = treatment.id
 
     //gets the appointment id
     let appID = document.querySelector('#appID').innerHTML;
@@ -59,6 +60,7 @@ const updateAppointment = async () => {
     const clientName = document.querySelector('#cName');
     const cNameInput = document.createElement('select');
     cNameInput.id = 'cname';
+    cNameInput.classList.add('field__input');
     await getClients(cNameInput);
 
     for(let i = 0; i < cNameInput.options.length; i++) {
@@ -72,6 +74,7 @@ const updateAppointment = async () => {
     const dateInput = document.createElement('input');
     dateInput.id = 'appDate';
     dateInput.type = 'date';
+    dateInput.classList.add('field__input');
     const [day, month, year] = appDate.innerHTML.split('/');
     dateInput.value =`${year}-${month}-${day}`;
 
@@ -80,6 +83,7 @@ const updateAppointment = async () => {
     const startInput = document.createElement('input');
     startInput.id = 'startTime';
     startInput.type = 'time';
+    startInput.classList.add('field__input');
     startInput.value = startTime.innerHTML;
 
 
@@ -87,6 +91,7 @@ const updateAppointment = async () => {
     const endInput = document.createElement('input');
     endInput.id = 'endTime';
     endInput.type = 'time';
+    endInput.classList.add('field__input');
     endInput.value = endTime.innerHTML;
 
     appDate.replaceWith(dateInput);
