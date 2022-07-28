@@ -77,7 +77,7 @@ document.querySelector('#statementBtn').addEventListener('click', async (event) 
             const dataDate = document.createElement('td');
             dataDate.innerHTML = new Date(statements[i].appdate).toLocaleDateString();
             const dataTreatmentPrice = document.createElement('td');
-            dataTreatmentPrice.innerHTML = "£" + statements[i].price + "/£" + statements[i].totalprice;
+            dataTreatmentPrice.innerHTML = "£" + statements[i].price; //+ "/£" + statements[i].totalprice;
 
             data.appendChild(dataID);
             data.appendChild(dataName);

@@ -3,7 +3,7 @@
 # Tasks
 
 - change statements to include all appointment treatment - done
-- improve styling
+- improve styling done
 - addTreatments done
 - deleteTreatments done
 - updateTreatment done

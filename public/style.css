@@ -366,6 +366,12 @@ HELPERS
 
 .statementRow:nth-child(even) {background-color: #f2f2f2;}
 
+.statementBtn {
+  width: auto;
+  min-width: auto;
+  min-height: auto;
+}
+
 
 
 
