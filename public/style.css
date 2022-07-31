@@ -64,9 +64,9 @@ body {
     list-style: none;
 }
 
-.decline-button, .accept-button, .deleteTreatmentButton {
-    background-color: red;
-    color: white;
+.decline-button, .accept-button, .deleteTreatmentButton, .deleteClientButton {
+    background-color: rgb(255, 243, 243);
+    color: black;
     border: none;
     padding: 1rem;
     cursor: pointer;
@@ -83,7 +83,7 @@ body {
     font-size: 20px;
 }
 
-.fa-xmark, .fa-check {
+.fa-trash-o {
     pointer-events: none;
 }
 
@@ -100,17 +100,17 @@ body {
   margin-top: 10%;
 }
 
-.treatmentTypes {
+.treatmentTypes, .clientTitle {
   box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
   margin: 10px;
   padding-bottom: 10px;
 }
 
-.treatment-ul {
+.treatment-ul, .client-ul {
   padding: 0px;
 }
 
-.treatment-li {
+.treatment-li, .client-li {
   list-style-type: none;
   width: 95%;
   margin: 10px;
@@ -119,7 +119,7 @@ body {
 
 }
 
-.treatment-li:hover {
+.treatment-li:hover, .client-li:hover {
   background-color: rgba(206, 206, 206, 0.545);
   cursor: pointer;
   transform: scale(1.03);
@@ -130,11 +130,11 @@ body {
 
 }
 
-.treatmentname {
+.treatmentname, .clientname {
   margin: 1px;
 }
 
-.treatment-info {
+.treatment-info, .client-info {
   color: rgb(102, 102, 102);
   font-size: 13px;
 }
@@ -370,6 +370,10 @@ HELPERS
   width: auto;
   min-width: auto;
   min-height: auto;
+}
+
+#statementForm {
+  padding-top: 2%;
 }
 
 

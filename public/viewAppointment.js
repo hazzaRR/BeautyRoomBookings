@@ -207,30 +207,7 @@ const showAvailableTreatments = async () => {
         treatmentUl.appendChild(treatmentLi);
         treatmentLi.appendChild(treatmentNameDiv);
         treatmentLi.appendChild(treatmentDetailsDiv);
-        
-        
-        
-        
-        // const treatmentCheck =  document.createElement("INPUT");
-        // treatmentCheck.setAttribute("type", "checkbox");
-        // treatmentCheck.setAttribute('id',`treatment_${treatments[i].id}`);
-        // treatmentCheck.setAttribute('name',`treatment_${treatments[i].id}`);
-        // treatmentCheck.classList.add('treatment');
-        
-        // const treatmentNameLabel = document.createElement("label");
-        // treatmentNameLabel.setAttribute('for',`treatment_${treatments[i].id}`);
-        // treatmentNameLabel.innerHTML = treatments[i].treatmentname;
-        // const treatmentSpan = document.createElement("span");
-        // treatmentSpan.innerHTML = ` £${treatments[i].price}`;
-        
-        // // grab target element reference
-        // const sumbitBtn = document.querySelector('#createClient');
-        
-        // // insert the element before target element
-        // availableTreatmentsForm.appendChild(treatmentCheck);
-        // availableTreatmentsForm.appendChild(treatmentNameLabel);
-        // availableTreatmentsForm.appendChild(treatmentSpan);
-        // availableTreatmentsForm.appendChild(document.createElement("br"));
+
     }
 
     const btnDivContainer = document.createElement('div');
@@ -258,16 +235,6 @@ const showAvailableTreatments = async () => {
         });
     };
 
-
-    // const submitBtn =  document.createElement("INPUT");
-    // submitBtn.setAttribute("type", "submit");
-    // submitBtn.id = "addTreatmentsBtn";
-
-    // availableTreatmentsForm.appendChild(submitBtn);
-
-    // document.body.appendChild(availableTreatmentsForm);
-
-
     submitBtn.addEventListener('click', async (event) => {
 
         event.preventDefault();
@@ -280,7 +247,7 @@ const showAvailableTreatments = async () => {
             treatments.push(inputElements[i].id);
         };
 
-                //create a new request object
+        //create a new request object
         const newTreatments = {
             id,
             treatments
@@ -311,17 +278,6 @@ const showAvailableTreatments = async () => {
 
         window.location.href = `/appointment/viewAppointment?id=${id}`
     });
-
-
-
-
-
-
-    
-
-
-
-
 };
 
 document.querySelector('#addTreatment').addEventListener('click', showAvailableTreatments, {once : true});

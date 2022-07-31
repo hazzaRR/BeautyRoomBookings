@@ -2,7 +2,6 @@ const addTreatmentBtn = document.querySelector('#createTreatment');
 
 
 addTreatmentBtn.addEventListener('click', async () => {
-    console.log("harry");
 
     const TreatmentName = document.querySelector('#name');
     const TreatmentType = document.querySelector('#type');

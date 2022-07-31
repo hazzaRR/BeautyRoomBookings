@@ -1,29 +1,28 @@
-// const newClientbutton = document.querySelector('#createClient');
+document.querySelector('#addClient').addEventListener('click', (event) => {
+
+    window.location.href = '/client/newClient';
+});
 
 
-// newClientbutton.disabled = true;
-// newClientbutton.addEventListener('submit', newClient);
+const deleteClient = async (event) => {
+    
+    //gets the treatment id just selected
+    const item = event.target;
+    const client = item.parentElement;
+    const clientID = client.id
 
-// async function newClient(event) {
-//     event.preventDefault();
-//     const getForm = document.querySelector('#clientForm');
+    console.log(clientID);
 
+    const response = await fetch(`/client?id=${clientID}`, { method: 'DELETE'})
 
-//     const clientToAdd = {
-//         name: getForm.elements.namedItem('name').value,
-//         email: getForm.elements.namedItem('email').value,
-//         telephone: getForm.elements.namedItem('number').value,
-//     };
+    const json = await response.json();
 
-//     const serializedMessage = JSON.stringify(clientToAdd);
-//     const response = await fetch('/client', { method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: serializedMessage
-//         }
-//     );
+    alert("Client was Deleted");
+    client.remove();
+    
+}
 
-//     console.log(response.json);
-
-// };
+const deleteClientButtons = document.getElementsByClassName('deleteClientButton');
+for (let i = 0; i < deleteClientButtons.length; i++) {
+    deleteClientButtons[i].addEventListener('click', deleteClient);
+}

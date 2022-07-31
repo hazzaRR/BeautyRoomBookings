@@ -1,0 +1,30 @@
+<section class="section-container">
+    <div>
+    <h4 class="clientTitle">Clients</h4>
+
+        <ul class="client-ul">
+        {{#each clients}}
+            <li class="client-li" id="{{this.id}}">
+                <div>
+                    <h5 class="clientname">{{this.clientname}}</h5>
+                </div>
+                <div>
+                    <span class="client-info">{{this.email}}</span>
+                    <span>.</span>
+                    <span class="client-info">{{this.telephone}}</span>
+                </div>
+            <button class="deleteClientButton btn btn-default btn-sm" id="deleteClient"><i class="fa fa-trash-o"></i>Delete</button>
+            <button type="button" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-edit"></span> Edit
+            </button>
+            </li>
+        {{/each}}
+        </ul>
+    </div>
+
+    <div class="page">
+        
+        <button class="addButton button-31" id="addClient">Add Client</button>
+
+    </div>
+</section>

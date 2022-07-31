@@ -1,26 +1,3 @@
-{{!-- <ul>
-<h2>list of treatments:</h2>
-<button class="addButton" id="addTreatment">Add..</button>
-    
-{{#each treatments}}
-
-<div class="currentTreatments">
-    <ul>
-        <li class="treatmentItem">TreatmentID: {{this.id}}</li>
-        <li class="treatmentItem">Treatment Name: {{this.treatmentname}}</li>
-        <li class="treatmentItem">Price: £{{this.price}}</li>
-    </ul>
-
-    <button class="deleteTreatmentButton" id="deleteTreatment">Delete</button>
-</div>
-
-
-{{/each}}
-</ul>
-
-<h2 id="totalPrice">Total: £{{total_cost}}</h2> --}}
-
-
 <section class="section-container">
 
   <div class="page">
@@ -75,7 +52,7 @@
                     <span class="treatment-info">£{{this.price}}</span>
                     <span>.</span>
                 </div>
-            <button class="deleteTreatmentButton" id="deleteTreatment">Delete</button>
+            <button class="deleteTreatmentButton" id="deleteTreatment"><i class="fa fa-trash-o"></i></button>
             </li>
         {{/each}}
         </ul>

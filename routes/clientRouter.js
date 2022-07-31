@@ -7,19 +7,36 @@ const router = express.Router();
 
 router.use(express.json()); // => req.body
 
-router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname,'..','public','displayClient.html'));
+router.get('/', async (req, res) => {
+
+    try {
+
+        const { id } = req.query;
+
+        let clients = await pool.query("SELECT * FROM clients");
+
+        console.log(clients.rows);
+
+        res.render('client', {
+            script: '/client.js',
+            clients : clients.rows
+        });
+
+    } catch (err) {
+        console.error(err.message);
+        res.render("Couldnt retrieve appointments");
+    }
 });
 
 router.get('/newClient', (req, res) => {
     res.render('newClient', {
-        script: '/client.js'
+        script: '/newClient.js'
     });
 });
 
 //Create new client
 
-router.post("/client", async(req, res) => {
+router.post("/", async(req, res) => {
 
     try {
 
@@ -72,10 +89,10 @@ router.get("/client/:id", async(req, res) => {
 });
 
 
-router.delete("/client/:id", async(req, res) => {
+router.delete("/", async(req, res) => {
     try {
 
-        const { id } = req.params;
+        const { id } = req.query;
 
         const deleteClient = await pool.query("DELETE FROM clients WHERE id = $1", [id]);
 
