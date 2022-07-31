@@ -26,3 +26,20 @@ const deleteClientButtons = document.getElementsByClassName('deleteClientButton'
 for (let i = 0; i < deleteClientButtons.length; i++) {
     deleteClientButtons[i].addEventListener('click', deleteClient);
 }
+
+const editClient = async (event) => {
+
+    const item = event.target;
+    const client = item.parentElement;
+    const clientID = client.id
+    
+    //gets the treatment id just selected
+
+    window.location.href = `/client/updateClient?id=${clientID}`
+    
+}
+
+const editClientButtons = document.getElementsByClassName('editClientButton');
+for (let i = 0; i < editClientButtons.length; i++) {
+    editClientButtons[i].addEventListener('click', editClient);
+}
