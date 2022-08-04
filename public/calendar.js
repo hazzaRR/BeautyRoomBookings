@@ -1,3 +1,4 @@
+//fetches all the appointments in the database
 async function getAllAppointments() {
 
   const response = await fetch('/appointment/getAppointments');
@@ -7,6 +8,7 @@ async function getAllAppointments() {
   return appointments;
 }
 
+//creates the calendar and displays it to the page
 document.addEventListener('DOMContentLoaded', async function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -32,6 +34,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log(date);
         calendar.changeView('timeGridDay', date);
       },
+      //redirects the page to show the details of the appointment you have selected
       eventClick: function(info) {
         window.location.href = `/appointment/viewAppointment?id=${info.event.id}`;
       },
@@ -46,6 +49,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
     calendar.render();
 
+    //adds all the appointments to the the calendar as events
     const appointments = await getAllAppointments();
 
     for (let i = 0; i < appointments.length; i++) {

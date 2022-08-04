@@ -6,16 +6,20 @@ const date_selector = document.querySelector('#date');
 const startTime_selector = document.querySelector('#start-time');
 const endTime_selector = document.querySelector('#end-time');
 
+
+//gets all the clients stored in the database when the page is loaded
 document.addEventListener('DOMContentLoaded', await getClients.bind(event, document.querySelector('#client_selector')));
 
-const treatments = document.querySelectorAll('.treatment-li');
 
+//allows the user to select treatments which is then highlighted to indicated its selected
+const treatments = document.querySelectorAll('.treatment-li');
 for (let i = 0; i < treatments.length; i++) {
     treatments[i].addEventListener('click', () => {
         treatments[i].classList.toggle('selected-treatment');
     });
 };
 
+//function that creates an appointment and posts it to the database
 const createAppointment = async (event) => {
 
     event.preventDefault();
@@ -63,9 +67,6 @@ const createAppointment = async (event) => {
     for (let i = 0; i < selectedTreatments.length; i++) {
         treatments.push(selectedTreatments[i].classList.toggle('selected-treatment'));
     };
-
-
-    //window.location.href = 'appointment/createAppointment';
 
     date_selector.value = '';
     startTime_selector.value = '';

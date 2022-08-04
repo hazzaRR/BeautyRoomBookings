@@ -11,12 +11,10 @@ document.querySelector('#createClient').addEventListener('click', async (event) 
 
     }
 
-    console.log(newClient);
-
      //turns newclient object into JSON string
      const serializedMessage = JSON.stringify(newClient);
 
-     // posts JSON string to the server at the end point /treatment/updatedTreatment
+     // posts JSON string to the server at the end point /client
      const response = await fetch('/client', { method: 'POST',
                              headers: {
                                  'Content-Type': 'application/json'

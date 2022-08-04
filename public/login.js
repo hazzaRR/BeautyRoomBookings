@@ -1,10 +1,10 @@
+//removes the nav bar from the page that is automatically rendered in from the handlebars template
 document.body.removeChild(document.querySelector('nav'));
 
 //function runs whenever a form is submitted sends it to server to check if the email and password are correct
 async function loginAttempt(event) {
     event.preventDefault();
 
-    //selects the form element from form.hmtl
     const username = document.getElementById('username');
     const password = document.getElementById('password');
 
@@ -29,7 +29,7 @@ async function loginAttempt(event) {
     const json = await response.json();
 
 
-    //if login was successful add token is added to the localStorage
+    //if login was successful JWTtoken is added to the localStorage and stored as a cookie
     if (response.status === 200) {
         
         try

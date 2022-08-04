@@ -17,7 +17,7 @@ router.post("/admin", async(req, res) => {
         const { username } = req.body;
         const { password } = req.body;
     
-        const newAdmin = await pool.query("INSERT INTO admins (username, AdminPassword) VALUES ($1, $2)", [username, password]);
+        const newAdmin = await pool.query("INSERT INTO admins (username, password) VALUES ($1, $2)", [username, password]);
     
         res.json("Admin successfully created");
     } catch (err) {
